@@ -3,7 +3,8 @@
       "target": "es6",
       "module": "commonjs",
       "strict": true,
-      "outDir": "./dist" // 컴파일된 파일을 dist 폴더에 저장 (선택 사항)
+      "outDir": "./dist"
    },
-   "include": ["index.ts", "test/**/*.ts"]
+   "include": ["src/**/*", "index.ts"],
+   "exclude": ["test"] // test 폴더를 컴파일에서 제외
 }
