@@ -1,0 +1,9 @@
+{
+   "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "strict": true,
+      "outDir": "./dist" // 컴파일된 파일을 dist 폴더에 저장 (선택 사항)
+   },
+   "include": ["index.ts", "test/**/*.ts"]
+}
