@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>JavaScript Baseball Game</title>
+      <link rel="stylesheet" href="style.css" />
+   </head>
+   <body>
+      <div class="container">
+         <h1>숫자 야구 게임</h1>
+         <div class="instructions">
+            <p>1부터 9까지의 숫자 중 3개의 숫자를 맞춰보세요!</p>
+            <p>정확히 맞추면 <strong>Strike</strong></p>
+            <p>숫자는 맞지만 위치가 틀리면 <strong>Ball</strong>입니다.</p>
+         </div>
+         <div class="game">
+            <input type="number" id="guess" placeholder="세 자리 숫자 입력 (ex. 123)" />
+            <div class="button-container">
+               <button id="submit" onclick="guess()">맞추기</button>
+               <button id="restart" onclick="reset()">초기화</button>
+            </div>
+         </div>
+         <div class="result">
+            <ul id="log"></ul>
+         </div>
+      </div>
+
+      <!-- 모달 창 -->
+      <div id="modal" class="modal">
+         <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <p id="modal-message"></p>
+         </div>
+      </div>
+
+      <script src="index.js"></script>
+   </body>
+</html>
