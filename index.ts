@@ -50,10 +50,10 @@ const guess = (): void => {
 
    // 결과 메세지
    let result: string = '';
-   if (strikeCnt > 0 && ballCnt > 0) result = `${strikeCnt}스트라이크!! ${ballCnt}볼!!`;
+   if (strikeCnt > 0 && ballCnt > 0) result = `${ballCnt}볼!! ${strikeCnt}스트라이크!! `;
    else if (strikeCnt > 0 && ballCnt === 0) result = `${strikeCnt}스트라이크!!`;
    else if (strikeCnt === 0 && ballCnt > 0) result = `${ballCnt}볼!!`;
-   else result = `😛😛하나도😛😛😛 안 맞았지롱😛😛`;
+   else result = `😛😛하나도 😛😛😛 안 맞지롱😛😛`;
 
    showModal(result);
 };
