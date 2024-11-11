@@ -8,6 +8,7 @@ const modal = document.getElementById('modal') as HTMLElement;
 const modalMessage = document.getElementById('modal-message') as HTMLElement;
 const closeModalButton = document.getElementById('close-modal') as HTMLElement;
 
+// 초기화 버튼 클릭 이벤트
 const reset = (): void => {
    inputNumber.value = '';
 
@@ -20,45 +21,63 @@ const reset = (): void => {
    randomNumber = [...firstRandomNum, ...secondRandomNum, ...thirdRandomNum];
 };
 
+// 추측 숫자 검증
+const validationNumber = (inputNumberValue: string) => {
+   if (inputNumberValue.length !== 3) {
+      showModal('세 자리 숫자를 입력해주세요.');
+      return false;
+   }
+};
+
+// 스트라이크 개수 계산
+const countStrikes = (guessNumber: number[]): number =>
+   randomNumber.reduce((count, num, i) => {
+      if (num === guessNumber[i]) {
+         count += 1;
+      }
+      return count;
+   }, 0);
+
+// 볼 개수 계산
+const countBalls = (guessNumber: number[]): number =>
+   randomNumber.reduce((count, num, i) => {
+      const guessIdx = guessNumber.indexOf(num);
+      if (guessIdx !== -1 && guessIdx !== i) {
+         count += 1;
+      }
+      return count;
+   }, 0);
+
+// 추측 버튼 클릭 이벤트
 const guess = (): void => {
    const inputNumberValue: string = inputNumber.value;
 
-   // Validation
-   if (inputNumberValue.length !== 3) {
-      showModal('세 자리 숫자를 입력해주세요.');
-      return;
-   }
+   if (!validationNumber(inputNumberValue)) return;
 
    let guessNumber: number[] = inputNumberValue.split('').map((n: string) => parseInt(n));
 
-   // 스트라이크 개수
-   let strikeCnt: number = 0;
-   randomNumber.forEach((r: number, i: number) => {
-      if (r === guessNumber[i]) {
-         strikeCnt++;
-      }
-   });
+   // 스트라이크 개수 계산
+   const strikeCnt = countStrikes(guessNumber);
+   // 볼 개수 계산
+   const ballCnt = countBalls(guessNumber);
 
-   // 볼 개수
-   let ballCnt: number = 0;
-   randomNumber.forEach((r: number, i: number) => {
-      const guessIdx: number = guessNumber.indexOf(r);
-      if (guessIdx !== -1 && guessIdx !== i) {
-         ballCnt++;
-      }
-   });
+   //결과 메세지
+   resultMessage(strikeCnt, ballCnt);
+};
 
-   // 결과 메세지
+const resultMessage = (strikeCnt: number, ballCnt: number) => {
    let result: string = '';
+
    if (strikeCnt > 0 && ballCnt > 0) result = `${ballCnt}볼!! ${strikeCnt}스트라이크!! `;
    else if (strikeCnt > 0 && ballCnt === 0) result = `${strikeCnt}스트라이크!!`;
    else if (strikeCnt === 0 && ballCnt > 0) result = `${ballCnt}볼!!`;
    else result = `😛😛하나도 😛😛😛 안 맞지롱😛😛`;
 
+   //결과 창 모달
    showModal(result);
 };
 
-// 모달 표시 함수
+// 결과 모달 표시 함수
 const showModal = (message: string): void => {
    modalMessage.innerText = message;
    modal.style.display = 'flex'; // 모달을 화면에 표시
@@ -69,7 +88,7 @@ closeModalButton.onclick = () => {
    modal.style.display = 'none';
 };
 
-// 모달 외부 클릭 시 모달 닫기
+// 모달 외부 영역 클릭 시, 모달 닫기
 window.onclick = (event) => {
    if (event.target === modal) {
       modal.style.display = 'none';
