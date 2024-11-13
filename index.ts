@@ -17,7 +17,7 @@ const reset = (): void => {
    const firstRandomNum: number[] = availableNumbers.splice(Math.floor(Math.random() * 9), 1);
    const secondRandomNum: number[] = availableNumbers.splice(Math.floor(Math.random() * 8), 1);
    const thirdRandomNum: number[] = availableNumbers.splice(Math.floor(Math.random() * 7), 1);
-
+   //배열
    randomNumber = [...firstRandomNum, ...secondRandomNum, ...thirdRandomNum];
 };
 
